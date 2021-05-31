@@ -1,16 +1,15 @@
-const formatResponse = (status: number, body: any) => ({
-    statusCode: status,
-    body: JSON.stringify(body)
-})
+import formatResponse from "./format-response";
 
-export default (fn) => {
-    return async (event) => {
+type CallbackFunction = (event: any) => Promise<any>
+
+export default (fn: CallbackFunction) => {
+    return async (event: any) => {
         try{
             const { body } = event;
             if(body) {
                 event.body = JSON.parse(body);
             }
-            const result = fn(event);
+            const result = await fn(event);
 
             return formatResponse(200, result);
         }catch(error) {

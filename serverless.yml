@@ -1,0 +1,32 @@
+service: sls-ts
+
+provider:
+  name: aws
+  region: us-east-1
+  runtime: nodejs14.x
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+package:
+  individually: true
+
+custom:
+  webpack:
+    packager: npm
+
+functions:
+  get-users:
+    handler: src/controllers/users/get.handler
+    events:
+      - http:
+          method: get
+          path: /users
+          
+  create-user:
+    handler: src/controllers/users/create.handler
+    events:
+      - http:
+          method: post
+          path: /users
