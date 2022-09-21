@@ -22,4 +22,11 @@ jobs:
     #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     #     aws-region: us-east-1
     - name: ActiooonsLambdaBuild
-      uses: 'alandev2/lambda-builder@v0.2'
+      uses: 'alandev2/lambda-builder@v0.4'
+
+    - name: Test
+      id: build
+      run: |
+        echo Install dependencies
+        cd build 
+        ls
